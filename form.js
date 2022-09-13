@@ -48,19 +48,25 @@ $(document).ready(function($){
 
             } else {
                 $("#cpf").addClass("is-invalid");
-                
+                $("#cpfMsg").css("display", "block");
+                $("#cpfMsg").html("Cpf Inválido");
+                $("#cpf").focus();              
             }
 
             if($("#nome").val() != ""){
                 valid1 = valid1 + 1;
             } else {
                 $("#nome").addClass("is-invalid");
+                $("#nomeMsg").css("display", "block");
+                $("#nomeMsg").html("Campo Obrigatório")
             }
 
             if($("#dataNascimento").val() != ""){
                 valid1 = valid1 + 1;
             } else {
                 $("#dataNascimento").addClass("is-invalid");
+                $("#dataMsg").css("display", "block");
+                $("#dataMsg").html("Campo Obrigatório");
             }
 
             
@@ -106,20 +112,6 @@ $(document).ready(function($){
         }
     });
 
-    $("#dataNascimento").blur(function(){
-        if (this.value != "") {
-            $("#dataNascimento").removeClass("is-invalid");
-            $("#dataNascimento").addClass("is-valid");
-            $("#dataMsg").css("display", "none");
-        } else {
-            $("#dataMsg").css("display", "block");
-            $("#dataMsg").html("Campo Obrigatório");
-            $("#dataNascimento").addClass("is-invalid");
-            $("#dataNascimento").removeClass("is-valid");
-        }       
-    });
-
-
     // Validação do formulário
     //máscaras
     $('#cpf').mask('000.000.000-00');
@@ -161,5 +153,45 @@ $(document).ready(function($){
             return false;		
         return true;   
     }
+
+    $("#dataNascimento").change(function(){
+        var dataNasc = this.value;
+        dataNasc = new Date(dataNasc);
+        var date = new Date();
+        console.log(dataNasc.getTime() / 31536000000);
+        console.log(Math.floor((Date.now() - dataNasc.getTime()) / 31536000000));
+
+        if (dataNasc > date){
+            $("#dataNascimento").addClass("is-invalid");
+            $("#dataMsg").css("display", "block");
+            $("#dataMsg").html("Data de nascimento não pode ser maior que a data atual");
+
+        } else {
+            // anos
+            $("#valorIdade").html("");
+            $("#valorIdade").html(Math.floor((Date.now() - dataNasc.getTime()) / 31536000000));
+            // meses
+            $("#valorMes").html("");
+            $("#valorMes").html((date.getFullYear() - dataNasc.getFullYear()) * 12);
+
+            // dias
+            $("#valorDias").html("");
+            $("#valorDias").html(Math.floor((Date.now() - dataNasc.getTime()) / 86400000));
+            $(this).blur(function(){
+                if (this.value != "") {
+                    $("#dataNascimento").removeClass("is-invalid");
+                    $("#dataNascimento").addClass("is-valid");
+                    $("#dataMsg").css("display", "none");
+                } else {
+                    $("#dataMsg").css("display", "block");
+                    $("#dataMsg").html("Campo Obrigatório");
+                    $("#dataNascimento").addClass("is-invalid");
+                    $("#dataNascimento").removeClass("is-valid");
+
+                 
+                }       
+            });
+        }       
+    });
 
 });
