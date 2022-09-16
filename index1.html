@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="plugins/jquery.mask.js"></script>
-    <script src="form.js"></script>
+    <script src="js/form.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NTgit4GN1R8p"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
@@ -58,7 +59,8 @@
                         <div class="form-group row mb-3">
                             <div class="col-sm-3">
                                 <label for="dataNascimento" class="col-form-label">Data de Nascimento: </label>
-                                <input type="date" class="form-control form-control-sm col-2 ml-1" id="dataNascimento" max="2022-09-16">
+                                <input type="date" class="form-control form-control-sm col-2 ml-1" id="dataNascimento"
+                                    max="2022-09-16">
                                 <div class="invalid-feedback" id="dataMsg" style="font-size: 8pt;">
                                 </div>
                             </div>
@@ -78,9 +80,10 @@
                             <label for="cep" class="col-form-label">CEP:</label><span
                                 style="margin-top: 5px; margin-left: 5px;"><strong>(Somente Numeros)</strong></span>
                             <div class="col-6">
-                                <input type="text" class="form-control form-control-sm" id="cep" placeholder="00000-000"style="text-align: right;">
-                                <div class="invalid-feedback" id="cepMsg" style="font-size: 8pt;">  
-                                </div>                          
+                                <input type="text" class="form-control form-control-sm" id="cep" placeholder="00000-000"
+                                    style="text-align: right;">
+                                <div class="invalid-feedback" id="cepMsg" style="font-size: 8pt;">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row mb-3">
@@ -94,29 +97,29 @@
                                 <label for="nome" class="col-form-label">Nº: </label>
                                 <input type="number" class="form-control form-control-sm col-3 ml-1" id="numeroCasa">
                                 <div class="invalid-feedback" id="numeroCasaMsg" style="font-size: 8pt;">
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-sm-3">
-                                <label for="nome" class="col-form-label">Bairro: </label>
-                                <input type="text" class="form-control form-control-sm" id="bairro">
-                                <div class="invalid-feedback" id="bairroMsg" style="font-size: 3pt;">
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <div class="col-sm-3">
-                                <label for="nome" class="col-form-label">Complemento: </label>
-                                <input type="text" class="form-control form-control-sm" id="complemento">
-                                <div class="invalid-feedback" id="complementoMsg" style="font-size: 8pt;">
+                            <div class="mb-3 row">
+                                <div class="col-sm-3">
+                                    <label for="nome" class="col-form-label">Bairro: </label>
+                                    <input type="text" class="form-control form-control-sm" id="bairro">
+                                    <div class="invalid-feedback" id="bairroMsg" style="font-size: 3pt;">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-3 row mb-3">
-                            <div class="col-sm-6">
-                                <label for="nome" class="col-form-label">Município: </label>
-                                <input type="text" class="form-control form-control-sm" id="municipio">
-                                <div class="invalid-feedback" id="municipioMsg" style="font-size: 8pt;"></div>
+                            <div class="mb-3 row">
+                                <div class="col-sm-3">
+                                    <label for="nome" class="col-form-label">Complemento: </label>
+                                    <input type="text" class="form-control form-control-sm" id="complemento">
+                                    <div class="invalid-feedback" id="complementoMsg" style="font-size: 8pt;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 row mb-3">
+                                <div class="col-sm-6">
+                                    <label for="nome" class="col-form-label">Município: </label>
+                                    <input type="text" class="form-control form-control-sm" id="municipio">
+                                    <div class="invalid-feedback" id="municipioMsg" style="font-size: 8pt;"></div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
