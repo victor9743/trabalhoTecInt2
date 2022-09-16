@@ -250,14 +250,6 @@ $(document).ready(function ($) {
         }
     });
 
-    // consulta do cep com a tecla enter
-    /*  $("#cep").on(function (event) {
-         var keycode = (event.keyCode ? event.keyCode : event.which);
-         if (keycode == '13') {
-             consultaCep();
-         }
-     }); */
-
     // Validação do formulário   
     function validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g, '');
@@ -521,26 +513,67 @@ $(document).ready(function ($) {
 
         // Validações apartir da index 3
         $("#enviar").on('click', function (e) {
-            e.preventDefault();
+           
             //seletor para os checkbox com name mcheckbox selecionados
-            var checkbox = $('input:checkbox[type^=checkbox]:checked');
+            // var checkbox = $('input:checkbox[type^=checkbox]:checked');
+            var checkbox1 = $('[name="esporte"]:checked');
+            var checkbox2 = $('[name="aprendizado"]:checked');
+            var radioButton = document.querySelector('input[name="info"]:checked');
+            var valid = 0;
+            $("#esporteMsg").css("display", "none");
+            $("#aprendMsg").css("display", "none");
+            $("#infoMsg").css("display", "none");
             //verifica se existem checkbox selecionados
-            if(checkbox.length > 0){
-                //array para armazenar os valores
-                var val = [];
-                //função each para pegar os selecionados
-                checkbox.each(function(){
-                    val.push($(this).val());
-                });
-                //exibe no console o array com os valores selecionados
-                console.log(val);
-
-                if(checkbox.length < 2){
-                    alert("É necessário marca dois tipos de esporte");
+            if(checkbox1.length > 0){
+                if(checkbox1.length < 2){
+                    // alert("É necessário marca ao menos dois tipos de esporte");
+                    $("#esporteMsg").css("display", "block");
+                    $("#esporteMsg").html("É necessário marca ao menos dois tipos de esporte");
+                }else {
+                    valid = valid + 1;
+                    $("#esporteMsg").css("display", "none");
                 }
-            } 
+            } else{
+
+                $("#esporteMsg").css("display", "block");
+                $("#esporteMsg").html("Campo Obrigatório");
+            }
+            
+            if(checkbox2.length >0 ){
+
+                if(checkbox2.length < 3){
+                    $("#aprendMsg").css("display", "block");
+                    $("#aprendMsg").html("É necessário marca ao menos dois tipos de esporte");
+                }else {
+                    valid = valid + 1;
+                }
+            } else {
+                $("#aprendMsg").css("display", "block");
+                $("#aprendMsg").html("Campo Obrigatório");
+            }
+
+            if(radioButton != null){
+                valid = valid + 1;
+            } else{
+                $("#aprendMsg").css("display", "block");
+                $("#aprendMsg").html("Campo Obrigatório");
+            }
+
+            if(valid < 3){
+                e.preventDefault();
+            }
+            
+
             
         });
+
+        // if ($('#outrosInfo').is(":checked")){
+        //     $("#outros").css("display", "block");
+        // }
+        $("#outrosInfo").click(function(){
+            $("#outros").css("display", "block");
+        });
+        
 
     });
 
