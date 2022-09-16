@@ -1,30 +1,39 @@
-$(document).ready(function($){
+//máscaras
+$(document).ready(function ($) {
+    $("#cpf").mask('000.000.000-00');
+    $("#cep").mask("00000-000")
+    $("#telefone").mask("(00) 0000-00009")
+    $("#celular").mask("(00) 0000-00009")
+})
+
+$(document).ready(function ($) {
     // passo 1 esconder todos os passos e mostrar o primeiro
     // esconde todos os passos
     $(".step").hide();
 
+
     // mostra o primeiro passo
     $(".step").first().show();
-   
-    var passoExibido = function() {
+
+    var passoExibido = function () {
         var index = parseInt($(".step:visible").index());
         if (index == 0) {
             $("#anterior").hide();
             $("#enviar").hide();
             $("#progress").html("25%");
             $(".progress-bar").css("width", "25%");
-        } else if (index == 1){
+        } else if (index == 1) {
             $("#enviar").hide();
             $("#anterior").show();
             $("#progress").html("50%");
             $(".progress-bar").css("width", "50%");
-        } else if (index == 2){
+        } else if (index == 2) {
             $("#anterior").show();
             $("#enviar").hide();
             $("#avancar").show();
             $("#progress").html("75%");
             $(".progress-bar").css("width", "75%");
-        } else if (index == 3) {    
+        } else if (index == 3) {
             $("#avancar").hide();
             $("#enviar").show();
             $("#anterior").show();
@@ -36,185 +45,145 @@ $(document).ready(function($){
     passoExibido();
 
     // avanca para o proximo passo
-    $("#avancar").on('click', function(e){
+    $("#avancar").on('click', function (e) {
         e.preventDefault();
         var index = parseInt($(".step:visible").index());
-        // primeira página
-        if(index == 0) {
+        if (index == 0) {
             var valid1 = 0;
 
-            if($("#cpf").val() != ""){
+            if ($("#cpf").val() != "") {
                 valid1 = valid1 + 1;
-
             } else {
                 $("#cpf").addClass("is-invalid");
-                $("#cpfMsg").css("display", "block");
-                $("#cpfMsg").html("Cpf Inválido");
-                $("#cpf").focus();              
             }
 
-            if($("#nome").val() != ""){
+            if ($("#nome").val() != "") {
                 valid1 = valid1 + 1;
             } else {
                 $("#nome").addClass("is-invalid");
-                $("#nomeMsg").css("display", "block");
             }
 
-            if($("#dataNascimento").val() != ""){
+            if ($("#dataNascimento").val() != "" && $("#dataNascimento").val() < '2022-09-16') {
                 valid1 = valid1 + 1;
             } else {
-                $("#dataNascimento").addClass("is-invalid");
-                $("#dataMsg").css("display", "block");
+                $("#dataNascimento").addClass("is-invalid")
             }
 
-            $(".step:visible").hide().next().show();
-            if(valid1 == 3){
+            if (valid1 == 3) {
                 $(".step:visible").hide().next().show();
                 passoExibido();
             }
-        }
 
-        // segunda página
-        if(index == 1) {
-            // $("#cepMsg")
-            var valid2 = 0;
+        } else if (index == 1) {
+            var valid1 = 0;
 
-            if($("#cep").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#cep").val() != "") {
+                valid1 = valid1 + 1;
             } else {
                 $("#cep").addClass("is-invalid");
-                $("#cepMsg").css("display", "block");
+
             }
 
-            if($("#logradouro").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#logradouro").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#logradouro").addClass("is-invalid");
-                $("#logradouroMsg").css("display", "block");
+                $("#logradouro").addClass("is-invalid")
+
             }
 
-            if($("#numLog").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#numeroCasa").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#numLog").addClass("is-invalid");
-                $("#lognumMsg").css("display", "block");
+                $("#numeroCasa").addClass("is-invalid")
+
             }
 
-            if($("#bairro").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#bairro").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#bairro").addClass("is-invalid");
-                $("#bairroMsg").css("display", "block");
+                $("#bairro").addClass("is-invalid")
             }
 
-            if($("#complemento").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#complemento").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#complemento").addClass("is-invalid");
-                $("#complementoMsg").css("display", "block");
+                $("#complemento").addClass("is-invalid")
             }
 
-            if($("#municipio").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#municipio").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#municipio").addClass("is-invalid");
-                $("#municipioMsg").css("display", "block");
+                $("#municipio").addClass("is-invalid")
             }
 
-            if($("#estados").val() != ""){
-                valid2 = valid2 + 1;
-
+            if ($("#UF").val() != "") {
+                valid1 = valid1 + 1;
             } else {
-                $("#estados").addClass("is-invalid");
-                $("#estadoMsg").css("display", "block");
+                $("#UF").addClass("is-invalid")
+
+            }
+            if (valid1 == 7) {
+                $(".step:visible").hide().next().show();
+                passoExibido();
             }
 
-            
-            $(".step:visible").hide().next().show();
-            if(valid2 == 7){
+        } else if (index == 2) {
+            var valid1 = 0;
+
+            if ($("#email").val() != "") {
+                valid1 = valid1 + 1;
+            } else {
+                $("#email").addClass("is-invalid");
+
+            }
+
+            if ($("#confir-email").val() != "" && $("#confir-email").val() == $("#email").val()) {
+                valid1 = valid1 + 1;
+            } else {
+                $("#confir-email").addClass("is-invalid")
+            }
+
+            if ($("#senha").val() != "") {
+                valid1 = valid1 + 1;
+            } else {
+                $("#senha").addClass("is-invalid")
+            }
+
+            if ($("#confir-senha").val() != "" && $("#confir-senha").val() == $("#senha").val()) {
+                valid1 = valid1 + 1;
+            } else {
+                $("#confir-senha").addClass("is-invalid")
+            }
+
+            if ($("#telefone").val() != "" || $("#celular").val() != "") {
+                valid1 = valid1 + 1;
+                $("#telefone").addClass("is-valid")
+                $("#celular").addClass("is-valid")
+            } else {
+                $("#telefone").addClass("is-invalid")
+                $("#celular").addClass("is-invalid")
+                $("#telefoneMsg").html("Necessário um Contato")
+            }
+
+            if (valid1 == 5) {
                 $(".step:visible").hide().next().show();
                 passoExibido();
             }
 
         }
 
-        if(index == 2){
 
-            var valid3 = 0;
-            if($("#email").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#email").addClass("is-invalid");
-                $("#emailMsg").css("display", "block");
-                $("#emailMsg").html("Campo Obrigatório");
-            }
-
-            if($("#confirmEmail").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#confirmEmail").addClass("is-invalid");
-                $("#confirmEmailMsg").css("display", "block");
-            }
-
-            if($("#senha").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#senha").addClass("is-invalid");
-                $("#senhaMsg").css("display", "block");
-            }
-
-            if($("#confirmSenha").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#confirmSenha").addClass("is-invalid");
-                $("#confirmSenhaMsg").css("display", "block");
-            }
-
-            if($("#telFixo").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#telFixo").addClass("is-invalid");
-                $("#telFixoMsg").css("display", "block");
-            }
-
-            if($("#telCel").val() != ""){
-                valid3 = valid3 + 1;
-
-            } else {
-                $("#telCel").addClass("is-invalid");
-                $("#telCelMsg").css("display", "block");
-            }
-
-
-           
-            // $(".step:visible").hide().next().show();
-            // if(valid2 == 7){
-            //     $(".step:visible").hide().next().show();
-            //     passoExibido();
-            // }
-        }   
-            
     });
 
     //retrocede para o passo anterior
-    $("#anterior").on('click', function(){
+    $("#anterior").on('click', function () {
         $(".step:visible").hide().prev().show();
         passoExibido();
     });
 
+
     // muda a cor dos campos inputs
-    $("#cpf").blur(function(){
+    $("#cpf").blur(function () {
         if (validarCPF(this.value)) {
             $("#cpf").removeClass("is-invalid");
             $("#cpf").addClass("is-valid");
@@ -228,281 +197,351 @@ $(document).ready(function($){
         }
     });
 
-    $("#nome").blur(function(){
+    $("#nome").blur(function () {
         if (this.value != "") {
             $("#nome").removeClass("is-invalid");
             $("#nome").addClass("is-valid");
             $("#nomeMsg").css("display", "none");
         } else {
             $("#nomeMsg").css("display", "block");
+            $("#nomeMsg").html("Campo Obrigatório");
             $("#nome").addClass("is-invalid");
             $("#nome").removeClass("is-valid");
         }
     });
 
-    $("#cep").blur(function(){
+    $("#dataNascimento").blur(function () {
+        var dataInformada = $("#dataNascimento").val()
+        dataInformada.replace(/\//g, "-");
+        var dataInformada = dataInformada.split("-");
+        var dia = dataInformada[2];
+        var mes = dataInformada[1];
+        var ano = dataInformada[0];
+        var hoje = new Date();
+        var d1 = hoje.getDate();
+        var m1 = hoje.getMonth() + 1;
+        var a1 = hoje.getFullYear();
+        var d1 = new Date(a1, m1, d1);
+        var d2 = new Date(ano, mes, dia);
+        var diff = d2.getTime() - d1.getTime();
+        if (this.value != "" && diff < 0) {
+            $("#dataNascimento").removeClass("is-invalid");
+            $("#dataNascimento").addClass("is-valid");
+            $("#dataMsg").css("display", "none");
+        } else {
+            $("#dataMsg").css("display", "block");
+            $("#dataMsg").html("Data Inválida");
+            $("#dataNascimento").addClass("is-invalid");
+            $("#dataNascimento").removeClass("is-valid");
+        }
+
+    });
+
+    //Exibir idade do usuário
+    $("#dataNascimento").change(function () {
+        var dataInformada = $("#dataNascimento").val()
+        var converteAno = parseInt(dataInformada)
+        var anoAtual = new Date();
+        var idade = anoAtual.getFullYear() - converteAno
+        if (idade <= 0) {
+            $("#valorData").html('0')
+        } else {
+            $("#valorData").html(idade)
+        }
+    });
+
+    // consulta do cep com a tecla enter
+    /*  $("#cep").on(function (event) {
+         var keycode = (event.keyCode ? event.keyCode : event.which);
+         if (keycode == '13') {
+             consultaCep();
+         }
+     }); */
+
+    // Validação do formulário   
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf == '') return false;
+        // Elimina CPFs invalidos conhecidos	
+        if (cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999")
+            return false;
+        // Valida 1o digito	
+        add = 0;
+        for (i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(9)))
+            return false;
+        // Valida 2o digito	
+        add = 0;
+        for (i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(10)))
+            return false;
+        return true;
+    }
+
+    $("#cep").on('change', function (e) {
+
+        function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#cep").val("");
+            $("#logradouro").val("");
+            $("#localidade").val("");
+            $("#uf").val("");
+            $("#numeroCasa").val("");
+            $("#complemento").val("");
+        }
+
+        var cep = $("#cep").val();
+        var url = `https://viacep.com.br/ws/${cep}/json/`;
+
+
+        fetch(url).then(function (response) {
+            response.json().then(function (data) {
+                $("#logradouro").val("");
+                $("#bairro").val("");
+                $("#municipio").val("");
+                $("#UF").val("").html();
+
+                if (!("erro" in data)) {
+                    //Atualiza os campos com os valores da consulta.
+                    $("#logradouro").val(data.logradouro).addClass("is-valid");
+                    $("#bairro").val(data.bairro).addClass("is-valid");
+                    $("#municipio").val(data.localidade).addClass("is-valid");
+                    $("#UF").val(data.uf).change().addClass("is-valid");
+                    $("#cep").val(data.cep).addClass("is-valid");
+                } else {
+                    limpa_formulário_cep();
+                    $("#cep").val(data.cep).addClass("is-invalid")
+                    $("#cepMsg").html("Cep Não Encontrado");
+                    $("#cep").addClass("is-invalid");
+                }
+            })
+
+        });
+
+    });
+
+    //Validações apartir da index1
+    $("#cep").blur(function () {
         if (this.value != "") {
             $("#cep").removeClass("is-invalid");
             $("#cep").addClass("is-valid");
             $("#cepMsg").css("display", "none");
         } else {
-            $("#cepMsg").css("display", "block");
+            $("#cep").css("display", "block");
+            $("#cepMsg").html("Campo Obrigatório");
             $("#cep").addClass("is-invalid");
             $("#cep").removeClass("is-valid");
         }
-    });
 
-    $("#logradouro").blur(function(){
-        if (this.value != "") {
-            $("#logradouro").removeClass("is-invalid");
-            $("#logradouro").addClass("is-valid");
-            $("#logradouroMsg").css("display", "none");
-        } else {
-            $("#logradouroMsg").css("display", "block");
-            $("#logradouro").addClass("is-invalid");
-            $("#logradouro").removeClass("is-valid");
-        }
-    });
+        $("#logradouro").blur(function () {
+            if (this.value != "") {
+                $("#logradouro").removeClass("is-invalid");
+                $("#logradouro").addClass("is-valid");
+                $("#logradouroMsg").css("display", "none");
 
-    $("#numLog").blur(function(){
-        if (this.value != "") {
-            $("#numLog").removeClass("is-invalid");
-            $("#numLog").addClass("is-valid");
-            $("#lognumMsg").css("display", "none");
-        } else {
-            $("#lognumMsg").css("display", "block");
-            $("#numLog").addClass("is-invalid");
-            $("#numLog").removeClass("is-valid");
-        }
-    });
-
-    $("#bairro").blur(function(){
-        if (this.value != "") {
-            $("#bairro").removeClass("is-invalid");
-            $("#bairro").addClass("is-valid");
-            $("#bairroMsg").css("display", "none");
-        } else {
-            $("#bairroMsg").css("display", "block");
-            $("#bairro").addClass("is-invalid");
-            $("#bairro").removeClass("is-valid");
-        }
-    });
-
-    $("#complemento").blur(function(){
-        if (this.value != "") {
-            $("#complemento").removeClass("is-invalid");
-            $("#complemento").addClass("is-valid");
-            $("#complementoMsg").css("display", "none");
-        } else {
-            $("#complementoMsg").css("display", "block");
-            $("#complemento").addClass("is-invalid");
-            $("#complemento").removeClass("is-valid");
-        }
-    });
-
-    $("#municipio").blur(function(){
-        if (this.value != "") {
-            $("#municipio").removeClass("is-invalid");
-            $("#municipio").addClass("is-valid");
-            $("#municipioMsg").css("display", "none");
-        } else {
-            $("#municipioMsg").css("display", "block");
-            $("#municipio").addClass("is-invalid");
-            $("#municipio").removeClass("is-valid");
-        }
-    });
-
-    $("#estados").blur(function(){
-        if (this.value != "") {
-            $("#estados").removeClass("is-invalid");
-            $("#estados").addClass("is-valid");
-            $("#estadoMsg").css("display", "none");
-        } else {
-            $("#estadoMsg").css("display", "block");
-            $("#estados").addClass("is-invalid");
-            $("#estados").removeClass("is-valid");
-        }
-    });
-
-    $("#senha").blur(function(){
-        if (this.value != "") {
-            $("#senha").removeClass("is-invalid");
-            $("#senha").addClass("is-valid");
-            $("#senhaMsg").css("display", "none");
-        } else {
-            $("#senhaMsg").css("display", "block");
-            $("#senha").addClass("is-invalid");
-            $("#senha").removeClass("is-valid");
-        }
-    });
-
-
-    // Validação do formulário
-    //máscaras
-    $('#cpf').mask('000.000.000-00');
-    $("#cep").mask('00000-000');
-    $("#telFixo").mask('(99) 99999-9999');
-    $("#telCel").mask('(99) 99999-9999');
-
-    function validarCPF(cpf) {	
-        cpf = cpf.replace(/[^\d]+/g,'');	
-        if(cpf == '') return false;	
-        // Elimina CPFs invalidos conhecidos	
-        if (cpf.length != 11 || 
-            cpf == "00000000000" || 
-            cpf == "11111111111" || 
-            cpf == "22222222222" || 
-            cpf == "33333333333" || 
-            cpf == "44444444444" || 
-            cpf == "55555555555" || 
-            cpf == "66666666666" || 
-            cpf == "77777777777" || 
-            cpf == "88888888888" || 
-            cpf == "99999999999")
-                return false;		
-        // Valida 1o digito	
-        add = 0;	
-        for (i=0; i < 9; i ++)		
-            add += parseInt(cpf.charAt(i)) * (10 - i);	
-            rev = 11 - (add % 11);	
-            if (rev == 10 || rev == 11)		
-                rev = 0;	
-            if (rev != parseInt(cpf.charAt(9)))		
-                return false;		
-        // Valida 2o digito	
-        add = 0;	
-        for (i = 0; i < 10; i ++)		
-            add += parseInt(cpf.charAt(i)) * (11 - i);	
-        rev = 11 - (add % 11);	
-        if (rev == 10 || rev == 11)	
-            rev = 0;	
-        if (rev != parseInt(cpf.charAt(10)))
-            return false;		
-        return true;   
-    }
-
-    $("#email").blur(function(){
-        if (this.value != "") {
-            validacaoEmail(this.value);
-        } else {
-            $("#emailMsg").css("display", "block");
-            $("#email").addClass("is-invalid");
-            $("#email").removeClass("is-valid");
-            $("#emailMsg").html("Campo Obrigatório");
-            $("#email").focus();
-        }
-        
-    })
-
-
-    // validar email
-    function validacaoEmail(field) {
-        console.log(field.indexOf("@"));
-        var usuario = field.substring(0, field.indexOf("@"));
-        var dominio = field.substring(field.indexOf("@")+ 1, field.length);
-        
-        if ((usuario.length >=1) &&
-            (dominio.length >=3) &&
-            (usuario.search("@")==-1) &&
-            (dominio.search("@")==-1) &&
-            (usuario.search(" ")==-1) &&
-            (dominio.search(" ")==-1) &&
-            (dominio.search(".")!=-1) &&
-            (dominio.indexOf(".") >=1)&&
-            (dominio.lastIndexOf(".") < dominio.length - 1)) {
-            $("#emailMsg").html("E-mail válido");
-            $("#email").removeClass("is-invalid");
-            $("#email").addClass("is-valid");
-            $("#emailMsg").css("display", "none");
-            
-        }
-        else{
-            $("#emailMsg").css("display", "block");
-            $("#email").addClass("is-invalid");
-            $("#email").removeClass("is-valid");
-            $("#emailMsg").html("E-mail Inválido");
-            $("#email").focus();
-        }
-    }
-
-    // verificar se os emails são iguais
-    $("#confirmEmail").keyup(function(){
-        if(this.value != $("#email").val()){
-            $("#confirmEmailMsg").css("display", "block");
-            $("#confirmEmail").addClass("is-invalid");
-            $("#confirmEmail").removeClass("is-valid");
-            $("#confirmEmailMsg").html("E-mail não são idênticos");
-            $("#confirmEmail").focus();
-        } else {
-            $("#confirmEmailMsg").css("display", "none");
-            $("#confirmEmail").removeClass("is-invalid");
-            $("#confirmEmail").addClass("is-valid");
-        }
-    });
-
-    // verificar se as senhas são iguais
-    $("#confirmSenha").keyup(function(){
-        if(this.value != $("#senha").val()){
-            $("#confirmSenhaMsg").css("display", "block");
-            $("#confirmSenha").addClass("is-invalid");
-            $("#confirmSenha").removeClass("is-valid");
-            $("#confirmSenhaMsg").html("Senha não são idênticos");
-            $("#confirmSenha").focus();
-        } else {
-            $("#confirmSenhaMsg").css("display", "none");
-            $("#confirmSenha").removeClass("is-invalid");
-            $("#confirmSenha").addClass("is-valid");
-        }
-    });
-
-    $("#dataNascimento").change(function(){
-        var dataNasc = this.value;
-        dataNasc = new Date(dataNasc);
-        var date = new Date();
-        console.log(dataNasc.getTime() / 31536000000);
-        console.log(Math.floor((Date.now() - dataNasc.getTime()) / 31536000000));
-
-        if (dataNasc > date){
-            $("#dataNascimento").addClass("is-invalid");
-            $("#dataMsg").css("display", "block");
-            $("#dataMsg").html("Data de nascimento não pode ser maior que a data atual");
-
-        } else {
-            // anos
-            $("#valorIdade").html("");
-            $("#valorIdade").html(Math.floor((Date.now() - dataNasc.getTime()) / 31536000000));
-            // meses
-            $("#valorMes").html("");
-            $("#valorMes").html((date.getFullYear() - dataNasc.getFullYear()) * 12);
-
-            // dias
-            $("#valorDias").html("");
-            $("#valorDias").html(Math.floor((Date.now() - dataNasc.getTime()) / 86400000));
-            $(this).blur(function(){
-                if (this.value != "") {
-                    $("#dataNascimento").removeClass("is-invalid");
-                    $("#dataNascimento").addClass("is-valid");
-                    $("#dataMsg").css("display", "none");
-                } else {
-                    $("#dataMsg").css("display", "block");
-                    $("#dataNascimento").addClass("is-invalid");
-                    $("#dataNascimento").removeClass("is-valid");
-
-                 
-                }       
-            });
-        }       
-    });
-
-    // Lista de UF
-    $.ajax({
-        type: "get",
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
-        url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
-        success: function(data) {
-            for(var i=0; i<= data.length - 1; i++){
-                document.getElementById("estados").innerHTML += "<option value='"+data[i].sigla+"'>"+data[i].nome+"</option>";
+            } else {
+                $("#logradouro").css("display", "block");
+                $("#logradouroMsg").html("Campo Obrigatório");
+                $("#logradouro").addClass("is-invalid");
+                $("#logradouro").removeClass("is-valid");
             }
+        });
+
+        $("#bairro").blur(function () {
+            if (this.value != "") {
+                $("#bairro").removeClass("is-invalid");
+                $("#bairro").addClass("is-valid");
+                $("#bairroMsg").css("display", "none");
+            } else {
+                $("#bairro").css("display", "block");
+                $("#bairroMsg").html("Campo Obrigatório");
+                $("#bairro").addClass("is-invalid");
+                $("#bairro").removeClass("is-valid");
+            }
+        });
+
+        $("#municipio").blur(function () {
+            if (this.value != "") {
+                $("#municipio").removeClass("is-invalid");
+                $("#municipio").addClass("is-valid");
+                $("#municipioMsg").css("display", "none");
+            } else {
+                $("#municipio").css("display", "block");
+                $("#municipioMsg").html("Campo Obrigatório");
+                $("#municipio").addClass("is-invalid");
+                $("#municipio").removeClass("is-valid");
+            }
+        });
+
+        $("#UF").blur(function () {
+            if (this.value != "") {
+                $("#UF").removeClass("is-invalid");
+                $("#UF").addClass("is-valid");
+                $("#UFMsg").css("display", "none");
+            } else {
+                $("#UF").css("display", "block");
+                $("#UFMsg").html("Campo Obrigatório");
+                $("#UF").addClass("is-invalid");
+                $("#UF").removeClass("is-valid");
+            }
+        });
+
+        $("#numeroCasa").blur(function () {
+            if (this.value != "") {
+                $("#numeroCasa").removeClass("is-invalid");
+                $("#numeroCasa").addClass("is-valid");
+                $("#numeroCasaMsg").css("display", "none");
+            } else {
+                $("#numeroCasa").css("display", "block");
+                $("#numeroCasaMsg").html("Campo Obrigatório");
+                $("#numeroCasa").addClass("is-invalid");
+                $("#numeroCasa").removeClass("is-valid");
+            }
+        });
+
+        $("#complemento").blur(function () {
+            if (this.value != "") {
+                $("#complemento").removeClass("is-invalid");
+                $("#complemento").addClass("is-valid");
+                $("#complementoMsg").css("display", "none");
+            } else {
+                $("#complemento").css("display", "block");
+                $("#complementoMsg").html("Campo Obrigatório");
+                $("#complemento").addClass("is-invalid");
+                $("#complemento").removeClass("is-valid");
+            }
+        });
+
+        // Validações apartir da index 2
+        $("#email").on('keyup', function () {
+            if (validarEmail(email.value) !== true) {
+                $("#email").css("display", "block");
+                $("#emailMsg").html("O Formato do email deve ser abc@com")
+                $("#email").addClass("is-invalid");
+                $("#emial").removeClass("is-valid");
+            } else {
+                $("#email").removeClass("is-invalid");
+                $("#email").addClass("is-valid");
+                $("#emailMsg").css("display", "none")
+            }
+        });
+
+
+        $("#confir-email").on('keyup', function () {
+            if ($("#confir-email").val() != $("#email").val()) {
+                $("#confir-email").css("display", "block");
+                $("#confir-emailMsg").html("Email divergente")
+                $("#confir-email").addClass("is-invalid");
+                $("#confir-email").removeClass("is-valid");
+            } else {
+                $("#confir-email").removeClass("is-invalid");
+                $("#confir-email").addClass("is-valid");
+                $("#confir-emailMsg").css("display", "none");
+            }
+        });
+
+
+        $("#senha").on('keyup', function () {
+            if (validarSenha(senha.value) !== true) {
+                $("#senha").css("display", "block");
+                $("#senhaMsg").html("Minímo 6 caracteres, letras, numeros, @.#$!& ")
+                $("#senha").addClass("is-invalid");
+                $("#senha").removeClass("is-valid");
+            } else {
+                $("#senha").removeClass("is-invalid");
+                $("#senha").addClass("is-valid");
+                $("#senhaMsg").css("display", "none")
+            }
+        });
+
+        $("#confir-senha").on('keyup', function () {
+            if ($("#confir-senha").val() != $("#senha").val()) {
+                $("#confir-senha").css("display", "block");
+                $("#confir-senhaMsg").html("Senhas não conferem")
+                $("#confir-senha").addClass("is-invalid");
+                $("#confir-senha").removeClass("is-valid");
+            } else {
+                $("#confir-senha").removeClass("is-invalid");
+                $("#confir-senha").addClass("is-valid");
+                $("#confir-senhaMsg").css("display", "none")
+            }
+        });
+
+
+        function validarEmail(email) {
+            const emailPadrao = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+            return emailPadrao.test(email)
         }
+
+        function validarSenha(senha) {
+            const senhaPadrao = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+            return senhaPadrao.test(senha)
+        }
+
+        $("#telefone").blur(function () {
+            if (this.value != "" || $("#celular").val()) {
+                $("#telefone").removeClass("is-invalid");
+                $("#telefone").addClass("is-valid");
+            } else {
+                $("#telefone").css("display", "block");
+                $("#telefone").addClass("is-invalid");
+                $("#telefone").removeClass("is-valid");
+            }
+        });
+
+        $("#celular").blur(function () {
+            if (this.value != "" || $("#telefone").val()) {
+                $("#celular").removeClass("is-invalid");
+                $("#celular").addClass("is-valid");
+            } else {
+                $("#celular").css("display", "block");
+                $("#celular").addClass("is-invalid");
+                $("#celular").removeClass("is-valid");
+            }
+        });
+
+
+        // Validações apartir da index 3
+        $("#enviar").on('click', function (e) {
+            e.preventDefault();
+            //seletor para os checkbox com name mcheckbox selecionados
+            var checkbox = $('input:checkbox[type^=checkbox]:checked');
+            //verifica se existem checkbox selecionados
+            if(checkbox.length > 0){
+                //array para armazenar os valores
+                var val = [];
+                //função each para pegar os selecionados
+                checkbox.each(function(){
+                    val.push($(this).val());
+                });
+                //exibe no console o array com os valores selecionados
+                console.log(val);
+
+                if(checkbox.length < 2){
+                    alert("É necessário marca dois tipos de esporte");
+                }
+            } 
+            
+        });
+
     });
+
 });
