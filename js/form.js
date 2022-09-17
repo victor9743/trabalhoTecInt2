@@ -518,7 +518,7 @@ $(document).ready(function ($) {
             // var checkbox = $('input:checkbox[type^=checkbox]:checked');
             var checkbox1 = $('[name="esporte"]:checked');
             var checkbox2 = $('[name="aprendizado"]:checked');
-            var radioButton = document.querySelector('input[name="info"]:checked');
+            var radioButton = document.querySelector('input[name=info]:checked');
             var valid = 0;
             $("#esporteMsg").css("display", "none");
             $("#aprendMsg").css("display", "none");
@@ -534,16 +534,15 @@ $(document).ready(function ($) {
                     $("#esporteMsg").css("display", "none");
                 }
             } else{
-
                 $("#esporteMsg").css("display", "block");
                 $("#esporteMsg").html("Campo Obrigatório");
             }
             
-            if(checkbox2.length >0 ){
+            if(checkbox2.length > 0){
 
                 if(checkbox2.length < 3){
                     $("#aprendMsg").css("display", "block");
-                    $("#aprendMsg").html("É necessário marca ao menos dois tipos de esporte");
+                    $("#aprendMsg").html("É necessário marca ao menos três desejos que queira aprender");
                 }else {
                     valid = valid + 1;
                 }
@@ -555,26 +554,22 @@ $(document).ready(function ($) {
             if(radioButton != null){
                 valid = valid + 1;
             } else{
-                $("#aprendMsg").css("display", "block");
-                $("#aprendMsg").html("Campo Obrigatório");
+                $("#infoMsg").css("display", "block");
+                $("#infoMsg").html("Campo Obrigatório");
             }
 
             if(valid < 3){
                 e.preventDefault();
             }
             
-
-            
         });
 
-        // if ($('#outrosInfo').is(":checked")){
-        //     $("#outros").css("display", "block");
-        // }
         $("#outrosInfo").click(function(){
             $("#outros").css("display", "block");
+            $("#outros").addClass("is-invalid");
+            $("#aprendMsg").html("Campo Obrigatório");
         });
         
-
     });
 
 });
