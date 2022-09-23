@@ -20,3 +20,10 @@
     color: red;
     margin-top: 0px;
 }
+
+#infoMsg{
+    display: none;
+    font-size: 8pt;
+    color: red;
+    margin-top: 0px;
+}

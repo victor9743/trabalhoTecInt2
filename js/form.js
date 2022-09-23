@@ -2,8 +2,8 @@
 $(document).ready(function ($) {
     $("#cpf").mask('000.000.000-00');
     $("#cep").mask("00000-000")
-    $("#telefone").mask("(00) 0000-00009")
-    $("#celular").mask("(00) 0000-00009")
+    $("#telefone").mask("(00) 0000-0000")
+    $("#celular").mask("(00) 9 0000-0000")
 })
 
 $(document).ready(function ($) {
@@ -63,7 +63,7 @@ $(document).ready(function ($) {
                 $("#nome").addClass("is-invalid");
             }
 
-            if ($("#dataNascimento").val() != "" && $("#dataNascimento").val() < '2022-09-16') {
+            if ($("#dataNascimento").val() != "" && $("#dataNascimento").val() < '2022-09-23') {
                 valid1 = valid1 + 1;
             } else {
                 $("#dataNascimento").addClass("is-invalid")
@@ -155,14 +155,14 @@ $(document).ready(function ($) {
                 $("#confir-senha").addClass("is-invalid")
             }
 
-            if ($("#telefone").val() != "" || $("#celular").val() != "") {
+            if ($("#telefone").val() != "" &&  $("#celular").val() != "") {
                 valid1 = valid1 + 1;
                 $("#telefone").addClass("is-valid")
                 $("#celular").addClass("is-valid")
             } else {
                 $("#telefone").addClass("is-invalid")
                 $("#celular").addClass("is-invalid")
-                $("#telefoneMsg").html("Necessário um Contato")
+                $("#telefoneMsg").html("Telefone e Celular são Obrigatórios")
             }
 
             if (valid1 == 5) {
@@ -489,7 +489,7 @@ $(document).ready(function ($) {
         }
 
         $("#telefone").blur(function () {
-            if (this.value != "" || $("#celular").val()) {
+            if (this.value != "") {
                 $("#telefone").removeClass("is-invalid");
                 $("#telefone").addClass("is-valid");
             } else {
@@ -500,7 +500,7 @@ $(document).ready(function ($) {
         });
 
         $("#celular").blur(function () {
-            if (this.value != "" || $("#telefone").val()) {
+            if (this.value != "") {
                 $("#celular").removeClass("is-invalid");
                 $("#celular").addClass("is-valid");
             } else {
@@ -551,24 +551,27 @@ $(document).ready(function ($) {
                 $("#aprendMsg").html("Campo Obrigatório");
             }
 
-            if(radioButton != null){
+            if(radioButton != null ){
                 valid = valid + 1;
             } else{
                 $("#infoMsg").css("display", "block");
                 $("#infoMsg").html("Campo Obrigatório");
             }
-
+            
             if(valid < 3){
                 e.preventDefault();
             }
             
         });
 
-        $("#outrosInfo").click(function(){
-            $("#outros").css("display", "block");
-            $("#outros").addClass("is-invalid");
-            $("#aprendMsg").html("Campo Obrigatório");
-        });
+            $("#outrosInfo").click(function() {
+                    $("#outros").css("display", "block");
+                    $("#outros").addClass("is-invalid");
+                    $("#aprendMsg").html("Campo Obrigatório");
+            });
+
+           
+        
         
     });
 
