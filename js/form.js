@@ -5,17 +5,26 @@ $(document).ready(function ($) {
     $("#telefone").mask("(00) 0000-0000")
     $("#celular").mask("(00) 9 0000-0000")
 })
-
 $(document).ready(function ($) {
+
+    //Validação de data do sistema com data atual
+    function dataMax() {
+        let dataAtual = new Date();
+        let dia = dataAtual.getDate();
+        let mes = (dataAtual.getMonth() + 1).toString().padStart(2, '0');
+        let ano = dataAtual.getFullYear();
+        let data = ano + "-" + mes + "-" + dia;
+        return data
+    }
+
     // passo 1 esconder todos os passos e mostrar o primeiro
     // esconde todos os passos
     $(".step").hide();
-
-
+     
     // mostra o primeiro passo
     $(".step").first().show();
 
-    var passoExibido = function () {
+    var passoExibido = function () {    
         var index = parseInt($(".step:visible").index());
         if (index == 0) {
             $("#anterior").hide();
@@ -63,7 +72,7 @@ $(document).ready(function ($) {
                 $("#nome").addClass("is-invalid");
             }
 
-            if ($("#dataNascimento").val() != "" && $("#dataNascimento").val() < '2022-09-23') {
+            if ($("#dataNascimento").val() != "" && $("#dataNascimento").val() <= dataMax()) {
                 valid1 = valid1 + 1;
             } else {
                 $("#dataNascimento").addClass("is-invalid")
@@ -210,6 +219,7 @@ $(document).ready(function ($) {
         }
     });
 
+
     $("#dataNascimento").blur(function () {
         var dataInformada = $("#dataNascimento").val()
         dataInformada.replace(/\//g, "-");
@@ -224,7 +234,7 @@ $(document).ready(function ($) {
         var d1 = new Date(a1, m1, d1);
         var d2 = new Date(ano, mes, dia);
         var diff = d2.getTime() - d1.getTime();
-        if (this.value != "" && diff < 0) {
+        if (this.value != "" && diff <= 0) {
             $("#dataNascimento").removeClass("is-invalid");
             $("#dataNascimento").addClass("is-valid");
             $("#dataMsg").css("display", "none");
